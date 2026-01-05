@@ -1,6 +1,5 @@
-## About The Project
-
-This project contains a comprehensive toolbox and set of scripts developed during my PhD research at UBC. It is structured as a large repository to allow code resuse across multiple projects, experiments, and languages.
+# PhD Computational Toolbox
+This repository contains a comprehensive toolbox and set of scripts developed during my PhD research at UBC. It is structured as a large repository to allow code resuse across multiple projects, experiments, and languages.
 
 ## Installation
 We use [uv](https://github.com/astral-sh/uv) for dependency management and workspace handling. It relies on a unified lockfile (`uv.lock`) to ensure reproducible environments across all machines. To set up a local development environment, simply sync the repository. This will create a local virtual environment (`.venv`) and install all workspace packages and dependencies exactly as specified in `uv.lock`.

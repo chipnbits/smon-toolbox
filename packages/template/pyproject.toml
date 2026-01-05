@@ -1,0 +1,19 @@
+[project]
+name = "TEMPLATE"
+version = "0.1.0"
+description = "PhD Computational Toolbox"
+readme = "README.md"
+authors = [
+    { name = "Simon Ghyselincks", email = "sghyseli@cs.ubc.ca" }
+]
+requires-python = ">=3.13"
+dependencies = [
+
+]
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+smon_toolbox = { workspace = true } # Looks for the smon_toolbox package in the workspace
