@@ -1,0 +1,8 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.DS_Store": true,
+        "**/*.egg-info": true
+    }
+}
