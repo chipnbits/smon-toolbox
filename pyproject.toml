@@ -3,7 +3,9 @@ name = "smon-ws"
 version = "0.1.0"
 description = "The monorepo root for PhD research"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "smon-toolbox",
+]
 
 # Define this as a workspace in uv
 [tool.uv]
@@ -11,6 +13,9 @@ package = false   # This is a workspace root
 
 [tool.uv.workspace]
 members = ["packages/*"]
+
+[tool.uv.sources]
+smon-toolbox = { workspace = true }
 
 #Global Dev Dependencies (Available to the whole repo)
 [dependency-groups]
@@ -33,4 +38,8 @@ line_length = 108
 multi_line_output = 3
 
 [tool.pytest.ini_options]
-testpaths = ["packages"]  # Look for tests in the packages directory
+testpaths = ["packages"]  # Look for tests in all package directories
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-v --strict-markers"

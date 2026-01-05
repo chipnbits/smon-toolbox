@@ -1,5 +1,50 @@
-.venv/
+# Python
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 *.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Rust (for mixed projects)
 target/
+
+# Data (large files should use Git LFS)
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.mat
+
+# Temporary files
+*.tmp
+*.bak

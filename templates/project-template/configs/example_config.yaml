@@ -1,0 +1,24 @@
+# Example configuration file for experiments
+
+experiment:
+  name: "my_experiment"
+  seed: 42
+  output_dir: "results"
+
+# Model/method parameters
+model:
+  type: "example_model"
+  learning_rate: 0.001
+  batch_size: 32
+
+# Data parameters
+data:
+  dataset: "example_dataset"
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+# Logging
+logging:
+  level: "INFO"
+  log_dir: "logs"

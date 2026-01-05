@@ -1,0 +1,52 @@
+[project]
+name = "my-research-project"  # TODO: Change this to your project name
+version = "0.1.0"
+description = "Research project using smon_toolbox"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    { name = "Simon Ghyselincks", email = "sghyseli@cs.ubc.ca" }
+]
+
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "matplotlib>=3.8",
+    "jupyter>=1.0",
+    "ipykernel>=6.0",
+    # Simon's PhD Computational Toolbox
+    "smon-toolbox",
+]
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.uv]
+package = false  # This is a research project, not a package
+
+[tool.uv.sources]
+smon-toolbox = { git = "https://github.com/chipnbits/smon-toolbox.git", branch = "main" }
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "black>=25.0",
+    "isort>=7.0",
+    "pre-commit>=4.5",
+    "nbstripout>=0.8",  # Jupyter notebook cleanup
+]
+
+[tool.black]
+line-length = 108
+target-version = ['py313']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 108
+multi_line_output = 3
+
+[tool.pytest.ini_options]
+testpaths = ["experiments"]
+python_files = "test_*.py"

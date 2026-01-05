@@ -621,6 +621,9 @@ dev = [
 name = "smon-ws"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "smon-toolbox" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -631,6 +634,7 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "smon-toolbox", editable = "packages/smon-toolbox" }]
 
 [package.metadata.requires-dev]
 dev = [
