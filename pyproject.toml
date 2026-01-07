@@ -24,6 +24,7 @@ dev = [
     "pytest>=8.0.0",
     "black>=24.0.0",
     "isort>=5.0.0",
+    "nb-clean>=4.0.0",
 ]
 
 # Global Tool Configurations
