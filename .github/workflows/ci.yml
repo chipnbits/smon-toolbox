@@ -7,11 +7,17 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        # For PRs, checkout the head branch; for pushes, use the default (pushed ref)
+        ref: ${{ github.head_ref || github.ref_name }}
 
     - name: Install uv
       uses: astral-sh/setup-uv@v4
@@ -22,10 +28,17 @@ jobs:
       run: uv python install 3.13
 
     - name: Install dependencies
-      run: uv sync --all-packages
+      run: |
+        uv sync --all-packages
+        uv pip install "black[jupyter]"
 
-    - name: Run black check
-      run: uv run black --check .
+    - name: Auto-format code
+      run: |
+        uv run black .
+        uv run isort .
 
-    - name: Run isort check
-      run: uv run isort --check .
+    - name: Commit and push fixes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "style: auto-fix formatting (black/isort)"
+        skip_fetch: true

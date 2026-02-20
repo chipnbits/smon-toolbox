@@ -1,4 +1,6 @@
-"""Stochastic trace estimators: Hutchinson and Hutch++."""
+"""
+Stochastic trace estimators: Hutchinson and Hutch++.
+"""
 
 import numpy as np
 

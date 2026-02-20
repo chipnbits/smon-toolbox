@@ -13,18 +13,18 @@
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.testing.pytestArgs": [
-        "packages",  // Look for tests in packages directory
+        "packages",
         "-v"
     ],
 
-    // Format on save
-    "editor.formatOnSave": true,
-    "python.formatting.provider": "black",
+    // Format on save with black + isort
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
         }
-    }
+    },
+    "isort.args": ["--profile", "black", "--line-length", "108"],
+    "black-formatter.args": ["--line-length", "108"]
 }
