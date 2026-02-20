@@ -1,1 +1,1 @@
-from .trace_estimators import hutchinson, hutch_plus_plus
+from .trace_estimators import hutch_plus_plus, hutchinson

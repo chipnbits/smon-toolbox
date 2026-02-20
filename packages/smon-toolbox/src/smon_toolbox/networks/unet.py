@@ -1,11 +1,11 @@
-""" Parts of the U-Net model """
+"""Parts of the U-Net model"""
 
 # Modified from https://github.com/milesial/Pytorch-UNet/blob/master/unet/unet_parts.py
+import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-import math
 from einops import rearrange
 
 
@@ -73,9 +73,7 @@ class Up(nn.Module):
         if bilinear:
             self.up = nn.Upsample(scale_factor=2, mode="bilinear", align_corners=True)
         else:
-            self.up = nn.ConvTranspose2d(
-                in_channels, in_channels // 2, kernel_size=2, stride=2
-            )
+            self.up = nn.ConvTranspose2d(in_channels, in_channels // 2, kernel_size=2, stride=2)
         # After upsampling, channels are reduced by 2 for concatenation
         self.conv = DoubleConv(
             in_channels // 2 + out_channels,  # Concatenation of skip connection
@@ -121,9 +119,7 @@ class RandomFourierEmbedding(nn.Module):
 
     def __init__(self, num_channels, bandwidth=100.0):
         super().__init__()
-        self.freqs = nn.Parameter(
-            torch.randn(num_channels) * bandwidth, requires_grad=False
-        )
+        self.freqs = nn.Parameter(torch.randn(num_channels) * bandwidth, requires_grad=False)
         self.phases = nn.Parameter(torch.rand(num_channels), requires_grad=False)
 
     def forward(self, t: torch.Tensor):
@@ -160,7 +156,7 @@ class UNet(nn.Module):
         self.out_channels = out_channels
         self.layer_dims = [dim * m for m in mults]
         self.bilinear = bilinear
-        
+
         time_embed = RandomFourierEmbedding(time_resolution, bandwidth=time_bandwidth)
         time_dim = dim * 4
         self.time_mlp = nn.Sequential(
@@ -176,7 +172,7 @@ class UNet(nn.Module):
         # Down layers
         self.downblocks = nn.ModuleList()
         for i in range(len(mults) - 1):
-            self.downblocks.append(Down(self.layer_dims[i], self.layer_dims[i + 1]))            
+            self.downblocks.append(Down(self.layer_dims[i], self.layer_dims[i + 1]))
 
         # Bottleneck
         self.bottleneck = DoubleConv(self.layer_dims[-1], self.layer_dims[-1])
@@ -197,43 +193,44 @@ class UNet(nn.Module):
         self.outc = nn.Conv2d(self.layer_dims[0], out_channels, kernel_size=1)
 
     def forward(self, x, t):
-        t= self.time_mlp(t)
+        t = self.time_mlp(t)
         # Down path
         skips = []
         x = self.inc(x)
         for down in self.downblocks:
             skips.append(x)
-            x = down(x,t)
+            x = down(x, t)
 
         # Bottleneck
-        x = self.bottleneck(x,t)
+        x = self.bottleneck(x, t)
 
         # Up path
         for i, up in enumerate(self.upblocks):
-            x = up(x, skips[-(i + 1)],t)
+            x = up(x, skips[-(i + 1)], t)
 
         # Final layer
         x = self.outc(x)
         return x
 
+
 if __name__ == "__main__":
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    
+
     # Initialize U-Net
     model = UNet(
-        n_channels=1,         # Input channels (e.g., grayscale images)
-        out_channels=1,       # Output channels (e.g., single channel for segmentation mask)
-        dim=32,               # Base dimension for the feature maps
-        mults=[1, 2, 4],      # Multipliers for the feature dimensions
-        time_resolution=64,   # Resolution of time embedding
-        time_bandwidth=1000.0, # Bandwidth for random Fourier features
-        bilinear=True          # Use bilinear upsampling
+        n_channels=1,  # Input channels (e.g., grayscale images)
+        out_channels=1,  # Output channels (e.g., single channel for segmentation mask)
+        dim=32,  # Base dimension for the feature maps
+        mults=[1, 2, 4],  # Multipliers for the feature dimensions
+        time_resolution=64,  # Resolution of time embedding
+        time_bandwidth=1000.0,  # Bandwidth for random Fourier features
+        bilinear=True,  # Use bilinear upsampling
     ).to(device)
 
     # Dummy input and time embeddings
     x = torch.randn(4, 1, 28, 28).to(device)  # Batch of 4 grayscale images
-    t = torch.randn(4).to(device)             # Batch of 4 time embeddings
+    t = torch.randn(4).to(device)  # Batch of 4 time embeddings
 
     # Forward pass
     output = model(x, t)
