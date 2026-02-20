@@ -1,0 +1,37 @@
+# FIGURE
+figure.facecolor: white
+figure.dpi: 100
+
+# FONT
+font.family: serif
+font.serif: DejaVu Serif
+font.size: 12
+
+# AXES
+axes.grid: True
+axes.facecolor: white
+axes.linewidth: 1.5
+axes.titlesize: 16
+axes.titleweight: bold
+axes.labelsize: 14
+axes.labelweight: normal
+axes.spines.top: False
+axes.spines.right: False
+axes.prop_cycle: cycler('color', ['D55E00', '0072B2', '009E73', 'CC79A7', 'F0E442', '56B4E9'])
+
+# GRID
+grid.color: E5E5E5
+grid.linestyle: --
+grid.linewidth: 1.0
+
+# TICKS
+xtick.labelsize: 12
+ytick.labelsize: 12
+xtick.direction: out
+ytick.direction: out
+
+# LEGEND
+legend.frameon: True
+legend.edgecolor: black
+legend.fontsize: 12
+legend.loc: best
