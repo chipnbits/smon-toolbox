@@ -20,13 +20,6 @@ members = ["packages/*"]
 
 [tool.uv.sources]
 smon-toolbox = { workspace = true }
-torch = { index = "pytorch-cu130" }
-torchvision = { index = "pytorch-cu130" }
-
-[[tool.uv.index]]
-name = "pytorch-cu130"
-url = "https://download.pytorch.org/whl/cu130"
-explicit = true  
 
 #Global Dev Dependencies (Available to the whole repo)
 [dependency-groups]
