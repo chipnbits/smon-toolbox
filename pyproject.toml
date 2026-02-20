@@ -18,8 +18,16 @@ package = false   # This is a workspace root
 [tool.uv.workspace]
 members = ["packages/*"]
 
+# Switch between cu128/cu130 to match system CUDA version
+[[tool.uv.index]]
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
 [tool.uv.sources]
 smon-toolbox = { workspace = true }
+torch = { index = "pytorch-cuda" }
+torchvision = { index = "pytorch-cuda" }
 
 #Global Dev Dependencies (Available to the whole repo)
 [dependency-groups]
